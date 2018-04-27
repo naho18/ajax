@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX Exercise</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/ajax-exercise.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <span class="navbar-brand">AJAX Exercise</span>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+
+  <h2>Fortune</h2>
+
+  <p>Want a fortune?
+    <button id="get-fortune-button" class="btn btn-primary">Get Fortune</button>
+    <script type="text/javascript">
+      // function insertFortune(results) {
+      //   //takes results, inserts into html
+      //   alert(results);
+      // }
+
+      // //event handler (actually sees the button), executes function
+
+      // ('#get-fortune-button').onclick = getFortune();
+
+      function insertFortune(results) {
+        //takes results, inserts into html
+        $('#fortune-text').html(results);
+      }
+
+      function getFortune() {
+
+        $.get('/fortune', insertFortune);
+
+      }
+
+      $('#get-fortune-button').on('click', getFortune);
+
+    </script>
+  </p>
+
+  <div id="fortune-text"></div>
+
+
+  <h2>Weather Service</h2>
+
+  <form id="weather-form">
+    <div class="form-group">
+      Want weather?
+      <input class="form-control" type="text" name="zipcode" id="zipcode-field"
+             placeholder="zipcode">
+
+
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Get It</button>
+
+      <script type="text/javascript">
+
+        //function put the result into the box
+        function showForecast(results) {
+          $('#weather-info').html(results);
+        }
+
+        //use info from form, call server function, use json, only get forecast, call other function.
+
+
+        
+        function getForecast() {
+          let fullForecast = $.get('/weather.json');
+
+          var obj = JSON.parse(fullForecast);
+
+          let JSForecast = obj.forecast[0];
+
+
+          console.log(JSForecast);
+          // showForecast(varForecast['forecast']);
+
+          // $.get('/weather.json', showForecast)
+        }
+
+
+
+        $('#weather-form').on('click', getForecast);
+
+
+
+
+      </script>
+
+
+                     <!-- script goes here -->
+
+    </div>
+  </form>
+
+  <div id="weather-info">
+    <!-- end result goes here -->
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Order Melons</h2>
+
+  <form id="order-form">
+    <div class="form-group">
+      <label>Quantity
+        <input class="form-control" type="number" name="qty" id="qty-field">
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>Melon Type
+        <select id="melon-type-field" name="melon_type" class="form-control">
+          <option>Watermelon</option>
+          <option>Crenshaw</option>
+        </select>
+
+      </label>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" id="order-form-button" class="btn btn-primary">Order</button>
+    </div>
+
+  </form>
+
+  <div id="order-status"></div>
+
+
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="/static/ajax-exercise.js"></script>
+
+</body>
+</html>
+
+
+
+
